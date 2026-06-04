@@ -1,0 +1,1 @@
+import{d as o,j as e,o as s}from"./app-fFowLmZk.js";const t={src:"/logo/logo.png",alt:"",class:"h-5"},p=o({inheritAttrs:!1,__name:"AppLogoIcon",props:{className:{}},setup(n){return(a,c)=>(s(),e("img",t))}});export{p as _};

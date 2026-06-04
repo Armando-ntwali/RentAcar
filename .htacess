@@ -1,0 +1,15 @@
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+
+    # Block sensitive Laravel files
+    RewriteRule ^\.env$ - [F,L]
+    RewriteRule ^artisan$ - [F,L]
+    RewriteRule ^composer\.(json|lock)$ - [F,L]
+    RewriteRule ^package(-lock)?\.json$ - [F,L]
+    RewriteRule ^webpack\.mix\.js$ - [F,L]
+    RewriteRule ^vite\.config\.js$ - [F,L]
+
+    # Send all browser requests to Laravel public folder
+    RewriteCond %{REQUEST_URI} !^/public/
+    RewriteRule ^(.*)$ public/$1 [L]
+</IfModule>
