@@ -8,13 +8,20 @@ RUN apk add --no-cache \
     curl \
     git \
     unzip \
-    libpq-dev \
     nodejs \
     npm \
-    oniguruma-dev \
-    libzip-dev \
     zip \
-    icu-dev
+    libzip-dev \
+    icu-dev \
+    oniguruma-dev \
+    libpq-dev \
+    libpng-dev \
+    libjpeg-turbo-dev \
+    freetype-dev
+
+RUN docker-php-ext-configure gd \
+    --with-freetype \
+    --with-jpeg
 
 RUN docker-php-ext-install \
     pdo \
@@ -23,13 +30,21 @@ RUN docker-php-ext-install \
     mbstring \
     zip \
     intl \
-    bcmath
+    bcmath \
+    gd \
+    exif
 
 COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 
 COPY . .
 
-RUN composer install --no-dev --optimize-autoloader --no-interaction --no-scripts
+RUN composer install \
+    --no-dev \
+    --optimize-autoloader \
+    --no-interaction \
+    --no-scripts \
+    --ignore-platform-req=ext-pcntl
+
 RUN if [ -f package.json ]; then npm install && npm run build; fi
 
 RUN chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache
