@@ -44,8 +44,7 @@ RUN composer install \
     --no-scripts \
     --ignore-platform-req=ext-pcntl
 
-RUN if [ -f package.json ]; then npm install && npm run build; fi
-
+RUN echo "Skipping npm build for Render deployment"
 RUN chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache
 
 COPY render-start.sh /usr/local/bin/render-start.sh
