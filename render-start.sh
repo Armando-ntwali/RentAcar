@@ -34,6 +34,7 @@ php artisan config:clear
 php artisan route:clear
 php artisan view:clear
 
+php artisan package:discover --ansi || true
 php artisan storage:link || true
 php artisan migrate --force || true
 
